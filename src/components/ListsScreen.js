@@ -11,7 +11,7 @@ export default class Homescreen extends Component {
     return (
       <View style={styles.mainContainer}>
         <View>
-          <Text style={styles.appName}>Home</Text>
+          <Text style={styles.appName}>List</Text>
           <Text style={styles.tagline}>Another screen to make sure that things are working the way we expect it to.</Text>
         </View>
           {/* <Button
