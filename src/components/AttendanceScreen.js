@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, Dimension, Picker } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Dimension, Picker, KeyboardAvoidingView } from 'react-native';
 import {Header, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import DropdownMenu from 'react-native-dropdown-menu';
+// import DropdownMenu from 'react-native-dropdown-menu';
 // import { createAppContainer } from 'react-navigation';
 // import { createStackNavigator } from 'react-navigation-stack';
 
 //import logoimg from '../img/icon.png';
-const data = [["C", "Java", "JavaScript", "PHP"]];
+
 
 export default class Attendancescreen extends Component {
     constructor(props){
@@ -49,31 +49,19 @@ export default class Attendancescreen extends Component {
             placeholder='Topic'
             style={styles.inputText}
             onChangeText={Topic => this.setState({Topic})} />
-            <TextInput 
-            placeholder='List'
-            style={styles.inputText}
-            onChangeText={Topic => this.setState({Topic})} />
+          <View style={styles.inputPickerContainer}>
             <Picker
               selectedValue={this.state.List}
-              style={{height: 50, width: 100}}
+              style={styles.inputPicker}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({List: itemValue})
               }>
-              <Picker.Item label="Java" value="java" />
-              <Picker.Item label="JavaScript" value="js" />
+              <Picker.Item label="CSC 500 level" value="CSC500LVL" />
+              <Picker.Item label="IMT 300 level" value="IMT300LVL" />
             </Picker>
-            {/* <View style={{flex:1}}>
-                <DropdownMenu
-                    style={{flex:1}}
-                    bgColor={'white'}
-                    tintColor={'#666666'}
-                    activityTintColor={'green'}
-                    handler={(selection, row) => this.setState({List: data[selection][row]})}
-                    data={data}
-                >
+          </View>
 
-                </DropdownMenu>
-            </View> */}
+
          <Button 
             title='Create'
             icon={
@@ -122,6 +110,20 @@ const styles = StyleSheet.create({
     borderWidth:2,
     borderRadius:5,
     borderColor: '#aaa'
+  },
+  inputPicker:{
+    width: 340,
+    fontSize:20,
+    borderColor: '#aaa'
+  },
+  inputPickerContainer:{
+    width: 340,
+    paddingLeft: 10,
+    fontSize:20,
+    borderColor: '#aaa',
+    borderWidth:2,
+    borderRadius:5,
+    marginBottom: 20,
   }
 });
 
