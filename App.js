@@ -12,6 +12,7 @@ import { createAppContainer,createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AnimatedLoader from 'react-native-animated-loader';
 
 
 import WelcomeScreen from './src/components/WelcomeScreen';
@@ -56,7 +57,8 @@ const AppNavigator = createMaterialBottomTabNavigator(
         title: 'Home',
         tabBarIcon:({ tintColor }) => (
           <Icon name="home" size={25} color={tintColor} />
-        )
+        ),
+        tabBarLabel: 'Home',
       }
     },
     Attendance: { 
@@ -87,10 +89,12 @@ const AppNavigator = createMaterialBottomTabNavigator(
     },
   },
   {
+    labeled: true,
     initialRouteName: 'Home',
-    activeColor: '#f0edf6',
+    activeColor: '#f0edf7',
     inactiveColor: '#3e2465',
-    barStyle: { backgroundColor: '#4FB3FF' },
+    
+    barStyle: { backgroundColor: '#4FB3FF',paddingBottom: 4 },
   
   });
 

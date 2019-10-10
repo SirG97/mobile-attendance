@@ -7,6 +7,8 @@ import { StyleSheet,
          TextInput,
          TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import AnimatedLoader from 'react-native-animated-loader';
+
 // import { createAppContainer } from 'react-navigation';
 // import { createStackNavigator } from 'react-navigation-stack';
 
@@ -22,12 +24,15 @@ export default class SetupScreen extends Component {
       Name: '',
       Regno: '',
       Department: '',
-      Email: ''
+      Email: '',
+      visible: false
     }
   }
 
   userSetup = () => {
-    if(!this.pressed){
+
+
+      this.setState({ visible: !this.state.visible, });
       const {Name} = this.state;
       const {Regno} = this.state;
       const {Department} = this.state;
@@ -46,16 +51,20 @@ export default class SetupScreen extends Component {
           email: Email
         })
       }).then((response) =>{
-          response.json()
+          const r = response.json();
+          console.log(r);
         }).then((response)=>{
+          console.log(response);
+          this.setState({ visible: this.state.visible, });
             alert('Successful registration');
             this.setupTokenAndNavigateToApp();
 
         }).catch((error)=>{
+          this.setState({ visible: this.state.visible, });
           alert('Registration failed');
           console.error(error);
         });
-    }
+    
 
   }
 
@@ -66,36 +75,44 @@ export default class SetupScreen extends Component {
   
 
     render() {
+      const { visible } = this.state;
       return (
         <View style={styles.mainContainer}>
+          <AnimatedLoader 
+            visible={visible}          
+            overlayColor="rgba(255,255,255,0.75)"          
+            animationStyle={styles.lottie}
+            source={require("../img/anime2.json")}     
+            speed={1}        
+            />
           <View style = {styles.logoContainer}>
-          <Image source={logoimg} style={styles.logo} />
-        </View>
+            <Image source={logoimg} style={styles.logo} />
+          </View>
         <View>
           <Text style={styles.appName}>Attendance</Text>
            <TextInput
-            style={styles.input}
+            style={styles.inputText}
             placeholder={'Name'}
             placeholderTextColor={'rgba(225,225,225, 0.7)'}
             underlineColorAndroid='transparent'
             onChangeText={Name => this.setState({Name})}
           /> 
           <TextInput
-            style={styles.input}
+            style={styles.inputText}
             placeholder={'Reg number'}
             placeholderTextColor={'rgba(225,225,225, 0.7)'}
             underlineColorAndroid='transparent'
             onChangeText={Regno => this.setState({Regno})}
           /> 
           <TextInput
-            style={styles.input}
+            style={styles.inputText}
             placeholder={'Email'}
             placeholderTextColor={'rgba(225,225,225, 0.7)'}
             underlineColorAndroid='transparent'
             onChangeText={Email => this.setState({Email})}
           /> 
           <TextInput
-            style={styles.input}
+            style={styles.inputText}
             placeholder={'Department'}
             placeholderTextColor={'rgba(225,225,225, 1.0)'}
             underlineColorAndroid='transparent'
@@ -124,6 +141,10 @@ export default class SetupScreen extends Component {
       paddingTop: 120,
       backgroundColor: '#ffffff'
     },
+    lottie: {    
+      width: 100,    
+      height: 100,  
+    },
     logoContainer:{
       alignItems: 'center',
     },
@@ -143,6 +164,15 @@ export default class SetupScreen extends Component {
       marginHorizontal: 25,
   
     },
+    inputText:{
+      width: WIDTH - 25,
+      marginBottom: 10,
+      paddingLeft: 10,
+      fontSize:20,
+      borderWidth:2,
+      borderRadius:5,
+      borderColor: '#aaa'
+    },
     appName:{
       fontWeight: 'bold',
       fontSize: 22,
@@ -159,8 +189,8 @@ export default class SetupScreen extends Component {
       justifyContent: 'center',
       width: WIDTH - 25,
       height: 55,
-      borderRadius: 25,
-      marginTop: 55,
+      borderRadius: 5,
+      marginTop: 5,
       alignItems: 'center',
       color: '#4FB3FF',
       backgroundColor: '#4FB3FF'
